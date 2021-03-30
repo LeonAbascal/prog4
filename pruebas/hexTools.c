@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef unsigned char byte;
+enum Wideness {VeryNarrow = 2, Narrow = 4, Normal = 8, Wide = 16};
 
 void hex_inspector(int x) {
 
@@ -52,6 +54,42 @@ void hex_fail_inspector(int x) {
     printf("]\n");
 
     printf("Int: %i\n\n", x);
+}
+
+void hex_table_inspector_example(int wide) {
+    int nums[256];
+    byte* ptr = (byte*) nums;
+    int i;
+    uintptr_t intptr;
+    for (i = 0; i < 256 * sizeof(int); i++) {
+
+        intptr = (uintptr_t) ptr + i;
+        if (intptr % wide == 0) {
+            printf(" ]\n%p: [", ptr + i);
+        }
+
+        printf(" %.2X", *(ptr + i));
+
+    }
+
+    printf(" ]");
+}
+
+// recommended use of Wideness enum for wide
+void hex_table_inspector(void* table_ptr, int table_size, int element_size, int wide) {
+    uintptr_t intptr;
+
+    byte* ptr = (byte*) table_ptr;
+    int size = table_size * element_size;
+    int i;
+    for (i = 0; i < size; i++) {
+        // unfixed
+        if (i % wide == 0) {
+            printf(" ]\n%p: [", ptr + i);
+        }
+
+        printf(" %.2X", *(ptr + 1));
+    }
 }
 
 void hex_editor_example(int x) {
