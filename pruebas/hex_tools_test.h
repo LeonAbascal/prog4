@@ -1,5 +1,5 @@
-#ifndef HEXTOOLS_H
-#define HEXTOOLS_H
+#ifndef HEXTOOLSTEST_H
+#define HEXTOOLSTEST_H
 
 typedef unsigned char byte;
 
@@ -14,6 +14,4 @@ void hex_inspector_comparison(int x);
 */
 void hex_table_inspector_example(int wide);
 
-void hex_table_inspector(void* table_ptr, int table_size, int element_size, int wide);
-
-#endif // HEXTOOLS_H
+#endif // HEXTOOLSTEST_H
