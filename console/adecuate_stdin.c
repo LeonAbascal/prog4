@@ -19,6 +19,7 @@ void clean_buffer(char* buffer) {
     }
 }
 
+/*
 void scan_str(char* buffer, int buffer_size) { // Forma segura de leer strings del teclado
 
     fgets(buffer, buffer_size, stdin);
@@ -30,3 +31,4 @@ void scan_str(char* buffer, int buffer_size) { // Forma segura de leer strings d
     fgets(buffer, buffer_size, stdin);
     clean_buffer(buffer);
 }
+*/
