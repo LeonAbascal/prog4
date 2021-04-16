@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 typedef unsigned char byte;
-enum Wideness {VeryNarrow = 2, Narrow = 4, Normal = 8, Wide = 16};
 
 // recommended use of Wideness enum for wide
 void hex_table_inspector(void* table_ptr, int table_size, int element_size, int wide) {
