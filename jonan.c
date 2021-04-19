@@ -11,13 +11,13 @@ void test_jonan() {
 
     printf("Locale info: %s\n", locale);
 
-    wchar_t* str = L"Ñoño";
+    //wchar_t* str = L"Ñoño"; // no funciona bien en windows
 
     // Forma 1
-    printf("%ls\n", str);
+    //printf("%ls\n", str);
 
     // Forma 2
-    wprintf(L"%s\n", str);
+    //wprintf(L"%s\n", str);
 
 
 }
