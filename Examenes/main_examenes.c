@@ -100,7 +100,7 @@ void examen_2020() {
     // liberamos memoria
     int i;
     for (i = 0; i < 5; i++) {
-        imprimirProducto(produs[i]);
+        //imprimirProducto(produs[i]);
         free(&produs[i]);
     }
 }

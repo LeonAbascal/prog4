@@ -34,7 +34,7 @@ char* pruebas_char4() {
 
 int main()
 {
-    examen_2020();
+    //examen_2020();
 
     return 0;
 }
