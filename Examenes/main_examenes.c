@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "2014/punto.h"
+#include "2014/poligono.h"
 
 void examen_2017() {
     Persona personas[5];
@@ -17,9 +18,65 @@ void examen_2017() {
 	imprimirPersona(personas[0]);
 }
 
-void examen_2014() {
-    Punto p1 = {1,2};
+void examen_2014(int x, int y) {
+    // PARTE 1
+    printf("Parte 1\n\n");
+    Punto p1 = {1, 2};
+    Punto p2 = {3, 4};
 	imprimirPunto(p1);
+	imprimirPunto(p2);
+	trasladarXY(&p1, &p2, x, y); // ARGS DE PROGRAMA
+	imprimirPunto(p1);
+	imprimirPunto(p2);
+    printf("\nPulsa intro para continuar... ");
+    getchar();
+
+    // PARTE 2
+    system("cls");
+    printf("Parte 2\n\n");
+    Poligono poli;
+
+    printf("Cuantos vertices: ");
+    scanf("%i", &poli.numVertices);
+
+
+    poli.vertices = malloc(poli.numVertices * sizeof(Punto*));
+    int i;
+    for(i = 0; i < poli.numVertices; i++) {
+        *(poli.vertices + i) = malloc(sizeof(Punto));
+
+        printf("[v%i] posicion X : ", i + 1);
+        scanf("%i", &poli.vertices[i]->x);
+        printf("[v%i] posicion Y : ", i + 1);
+        scanf("%i", &poli.vertices[i]->y);
+        putchar('\n');
+
+    }
+
+    system("cls");
+    printf("Parte 2: poligono\n\n");
+    imprimirPoligono(poli);
+    printf("Perimetro: %.2f\n", perimetro(poli));
+
+    printf("Pulsa intro para continuar... ");
+    getchar();
+
+    // PARTE 3
+    system("cls");
+
+    printf("Poligono original:\n");
+    imprimirPoligono(poli);
+
+    Poligono poli2;
+    copiarPoligono(&poli2, poli);
+    printf("\n\nPoligono copiado y ampliado:\n");
+    anadirVertice(&poli2, p1);
+    imprimirPoligono(poli2);
+
+    // liberar
+    liberar(&poli);
+    liberar(&poli2);
+
 }
 
 // EXAMEN 2020

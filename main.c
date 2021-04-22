@@ -32,9 +32,15 @@ char* pruebas_char4() {
 
 }
 
-int main()
-{
+int main(int argc, char* argv[]) {
     //examen_2020();
+
+    int arg1, arg2;
+    sscanf(argv[1], "%d", &arg1);
+    sscanf(argv[2], "%d", &arg2);
+
+    getchar();
+    examen_2014(arg1, arg2);
 
     return 0;
 }
