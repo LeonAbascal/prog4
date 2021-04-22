@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "2014/punto.h"
 
 void examen_2017() {
     Persona personas[5];
@@ -17,7 +18,8 @@ void examen_2017() {
 }
 
 void examen_2014() {
-
+    Punto p1 = {1,2};
+	imprimirPunto(p1);
 }
 
 // EXAMEN 2020
