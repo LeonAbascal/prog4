@@ -1,91 +1,83 @@
 #include "carrito.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-void crear_carrito(Carrito* carrito, Producto* productos, int* cantidades, int tamanyo) {
+void modificarCompra(Compra* c, int cantidad) {
+    c->unidades = cantidad;
+}
+
+void imprimirCompra(Compra c) {
+    imprimirProducto(*c.p);
+    printf(" x %i kg/ud\n", c.unidades);
+}
+
+void crearCarrito(Carrito* c, Producto* prods, int* cants, int tamanyo) {
+    float importeTotal = 0;
+
+    c->compras = malloc(tamanyo * sizeof(Compra*));
+    Compra* compra;
+    int i;
+    for(i = 0; i < tamanyo; i++) {
+        compra = malloc(sizeof(Compra));
+        compra->p = prods + i;
+        compra->unidades = cants[i];
+
+        c->compras[i] = compra;
+
+        importeTotal += prods[i].precio * cants[i];
+    }
+
+    c->noProductos = tamanyo;
+    c->importeTotal = importeTotal;
+
+}
+
+void imprimirTicket(Carrito c) {
 
     int i;
-    float total = 0;
 
-    Compra* compras = malloc(tamanyo * sizeof(Compra));
-
-    for (i = 0; i < tamanyo; i++) {
-        Producto* p = productos + i;
-        compras[i].prod = p;
-        compras[i].unidades = cantidades[i];
-
-        total+=cantidades[i] * p->precio;
+    printf("TICKET\n------\n");
+    for(i = 0; i < c.noProductos; i++) {
+        imprimirCompra(*c.compras[i]);
     }
-
-    carrito->compras = compras;
-    carrito->importe_total = total;
-
+    printf("...................................\n");
+    printf("TOTAL: %.2f euros\n", c.importeTotal);
 }
 
-void imprimir_ticket(Carrito carrito) {
+void devolverCarrito(Carrito* c) {
 
+    int i;
+    for(i = 0; i < c->noProductos; i++) {
+        free(c->compras + i);
+    }
+
+    free(c->compras);
+}
+
+void modificarCarrito(Carrito* carrito, int ref, int cant) {
     int i = 0;
-    float carrito_no_vacio = carrito.importe_total;
+    bool found = false;
 
-    printf("TICKET\n");
-    printf("------\n");
-
-    while(carrito_no_vacio > 0) {
-
-        imprimir_compra(carrito.compras + i);
-
-        carrito_no_vacio -= carrito.compras[i].unidades * carrito.compras[i].prod->precio;
-        i++;
+    while(!found) {
+        if(carrito->compras[i]->p->ref == ref) found = true;
+        else if (i >= carrito->noProductos) break;
+        else i++;
     }
 
-    printf("........................................\n");
-    printf("TOTAL: %.2f euros\n", carrito.importe_total);
-}
+    if (found) {
+        // corregimos el total
+        Compra* foundCompra = carrito->compras[i];
+        carrito->importeTotal -= foundCompra->unidades * foundCompra->p->precio;
 
-void modificar_carrito(Carrito* carrito, int ref, int cant) {
-    int existe = 0;
-    int i = 0;
+        // cambiamos la cantidad
+        foundCompra->unidades = cant;
 
-    float carrito_no_vacio = carrito->importe_total;
-    // existe?
-    Compra* c = carrito->compras;
-    while (carrito_no_vacio) {
+        carrito->importeTotal += cant * foundCompra->p->precio;
 
-        if (c[i].prod->ref == ref) {
-            existe = 1;
 
-            break;
-        }
-
-        carrito_no_vacio -= c[i].unidades * c[i].prod->precio;
-        i++;
+    } else {
+        printf("No se ha encontrado el id en el carrito.\n");
     }
 
-    if (existe) {
-        // precio total + ( (ahora - antes) * precio)
-        // antes 1, ahora 3
-        // total + (3 - 1) * 12 = total + 2*12 = total + 24
-        // antes 3, ahora 1
-        // total + (1 - 3) * 12 = total + (-2)*12 = total -24
-        carrito->importe_total += (cant - c[i].unidades) * c[i].prod->precio; // Rebalanceamos el total
-        c[i].unidades = cant; // Registramos la nueva cantidad
-    }
-}
-
-void devolver_carrito(Carrito* carrito) {
-    int carrito_no_vacio = carrito->importe_total;
-
-    if (carrito_no_vacio) {
-        free(carrito->compras);
-    }
-}
-
-void modificar_compra(Compra* compra, int cant) {
-    compra->unidades = cant;
-}
-
-void imprimir_compra(Compra* compra) {
-    Producto p = *(compra->prod);
-    imprimirProducto(p);
-    printf(" x %i kg/ud\n", compra->unidades);
 }

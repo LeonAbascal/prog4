@@ -1,12 +1,16 @@
-#include "2017/persona.h"
-#include "2017/censo.h"
-#include "2020/producto.h"
-#include "2020/carrito.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "2014/punto.h"
 #include "2014/poligono.h"
+
+#include "2017/persona.h"
+#include "2017/censo.h"
+
+#include "2020/carrito.h"
+#include "2020/producto.h"
 
 // examen 2017
 void crearInforme(GrupoPersonas gp, char* fichero) {
@@ -76,6 +80,7 @@ void examen_2017(int arg1) {
     free(nombres);
 }
 
+// EXAMEN 2014
 void examen_2014(int x, int y) {
     // PARTE 1
     printf("Parte 1\n\n");
@@ -137,41 +142,35 @@ void examen_2014(int x, int y) {
 
 }
 
+
 // EXAMEN 2020
-void leer_productos(Producto* productos[], char* fichero) {
+
+void leerProductos(Producto* productos[], char* fichero) {
+    int i;
+
     FILE* file = fopen(fichero, "r");
+    Producto* p;
 
-    if (file == NULL) {
-        printf("Archivo no encontrado.\n");
-    } else {
-        // asumimos que siempre hay 5 productos
-        int i;
-        int j;
-        for (i = 0; i < 5; i++) {
-            j = 0;
-            Producto* p = malloc(sizeof(Producto));
+    if (file != NULL) {
+        for(i = 0; i < 5; i++) {
+            p = productos[i];
 
-            // referencia
             p->ref = fgetc(file) - 48;
-
-            // nombre
-            for (j = 0; j < 14; j++) {
-                p->nombre[j] = fgetc(file);
-            }
-
-            // precio
-            char precio[4];
-            for (j = 0; j < 4; j++) {
-                precio[j] = fgetc(file);
-                p->precio = atof(precio);
-            }
-
-            productos[i] = p;
+            fgets(p->nombre, 15, file);
+            char precio[6];
+            fgets(precio, 6, file);
+            p->precio = atof(precio);
+            fgetc(file); // \n
         }
+
+    } else {
+        printf("No se ha encontrado el fichero.\n");
     }
 }
 
 void examen_2020() {
+    int i;
+
     Producto p1; p1.ref=1; strcpy(p1.nombre,"Platanos"); p1.precio=12.0;
 	Producto p2; p2.ref=2; strcpy(p2.nombre,"Solomillo"); p2.precio=32.2;
 	Producto p3; p3.ref=3; strcpy(p3.nombre,"Chocolate"); p3.precio=25.5;
@@ -182,42 +181,56 @@ void examen_2020() {
 
 	//imprimirProducto(p1);
 
+    // parte 1
+    system("cls");
+    printf("PARTE 1\n");
 
-    // EJERCICIO 1
-    /*
+    Compra c;
+    c.p = &p2;
+    c.unidades = 0;
+    printf("Compra antes:\n");
+    imprimirCompra(c);
 
+    printf("\nCompra despues:\n");
+    modificarCompra(&c, 3);
+    imprimirCompra(c);
 
-	Compra c;
-	c.prod = &p2;
+    getchar();
 
-	imprimir_compra(&c); // prueba a mala hostia 1.3
-	modificar_compra(&c, 3);
+    // parte 2
+    system("cls");
+    printf("PARTE 2\n");
 
-	imprimir_compra(&c); // prueba bien 1.3
-	*/
+    Carrito carrito;
+    Producto productos[] = {p1, p2, p3, p4, p5};
+    int cants[] = {1, 3, 5, 7, 9};
 
-    // EJERCICIO 2
-	Carrito carrito;
-	int cantidades[] = {1, 3, 5, 7, 9};
-	Producto productos[] = {p1, p2, p3, p4, p5};
-	crear_carrito(&carrito, productos, cantidades, 5);
-	imprimir_ticket(carrito);
+    crearCarrito(&carrito, productos, cants, 5);
+    imprimirTicket(carrito);
 
+    getchar();
 
-	// EJERCICIO 3
-    modificar_carrito(&carrito, 3, 0);
+    // parte 3
+    system("cls");
+    printf("PARTE 3\n\n");
 
-    printf("\n\n");
-    imprimir_ticket(carrito);
+    modificarCarrito(&carrito, 3, 0);
+    imprimirTicket(carrito);
+    putchar(0xA);
 
-    devolver_carrito(&carrito);
-    Producto** produs[5];
-    leer_productos(&produs, "Examenes/2020/productos.txt");
-
-    // liberamos memoria
-    int i;
-    for (i = 0; i < 5; i++) {
-        //imprimirProducto(produs[i]);
-        free(&produs[i]);
+    printf("\nViejo:\n");
+    for(i = 0; i < 5; i++) {
+        imprimirProducto(*comprados[i]);
+        putchar(0xA);
     }
+    leerProductos(&comprados, "Examenes/2020/productos.txt");
+
+    printf("\nNuevo:\n");
+    for(i = 0; i < 5; i++) {
+        imprimirProducto(*comprados[i]);
+        putchar(0xA);
+    }
+
+    // liberar memoria
+    devolverCarrito(&carrito);
 }

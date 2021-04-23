@@ -3,5 +3,5 @@
 
 void imprimirProducto(Producto p)
 {
-	printf("Ref.%i  %s \t %.2f", p.ref, p.nombre, p.precio);
+	printf("Ref.%i  %s \t %.2f", p. ref, p.nombre, p.precio);
 }

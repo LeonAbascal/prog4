@@ -34,7 +34,7 @@ char* pruebas_char4() {
 }
 
 int main(int argc, char* argv[]) {
-    //examen_2020();
+    examen_2020();
 
     // examen 2014
     int arg1 = 1;
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
         arg1 = atoi(argv[1]);
     }
 
-    examen_2017(arg1);
+    //examen_2017(arg1);
 
     return 0;
 }
