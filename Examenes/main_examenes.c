@@ -1,4 +1,5 @@
 #include "2017/persona.h"
+#include "2017/censo.h"
 #include "2020/producto.h"
 #include "2020/carrito.h"
 #include <string.h>
@@ -7,7 +8,29 @@
 #include "2014/punto.h"
 #include "2014/poligono.h"
 
-void examen_2017() {
+// examen 2017
+void crearInforme(GrupoPersonas gp, char* fichero) {
+
+    FILE* file = fopen(fichero, "w");
+
+    if (file != NULL){
+        fprintf(file, "CENSO DE JOVENES\n----------------\n");
+        int i, edad;
+        char* nombre;
+        for(i = 0; i < gp.numPersonas; i++) {
+            nombre = gp.personas[i]->nombre;
+            edad = gp.personas[i]->edad;
+            fprintf(file, "[Nombre: %s, Edad: %i]\n", nombre, edad);
+        }
+
+        fprintf(file, "Media: %.2f", gp.mediaEdad);
+    }
+
+    fclose(file);
+
+}
+
+void examen_2017(int arg1) {
     Persona personas[5];
 	personas[0].nombre="Hodei"; personas[0].edad=6;
 	personas[1].nombre="Anita"; personas[1].edad=41;
@@ -15,7 +38,42 @@ void examen_2017() {
 	personas[3].nombre="Idoia"; personas[3].edad=31;
 	personas[4].nombre="Maite"; personas[4].edad=24;
 
-	imprimirPersona(personas[0]);
+	//imprimirPersona(personas[0]);
+
+    printf("Personas menores de %i: %i\n", arg1, cuantasPersonas(personas, 5, arg1));
+
+    GrupoPersonas gp = recuperarJovenes(personas, 5);
+    printf("\n\nGrupo de personas menores de 30: \n");
+    int i;
+    for(i = 0; i < 3; i++){
+        Persona* p = gp.personas[i];
+        imprimirPersona(*p);
+    }
+    printf("Media: %.2f\n", gp.mediaEdad);
+
+
+    printf("\n\nLa persona mas joven es: \n");
+    imprimirPersona(*recuperarYogurin(personas, 5));
+
+
+    crearInforme(gp, "informe.txt");
+    free(gp.personas);
+
+    getchar();
+
+    // parte 3
+    system("cls");
+    printf("PARTE 3 ------------\n");
+    char letra = 'A';
+    int numNombres = cuantosNombres(personas, 5, letra);
+    printf("\nNum de nombres con la inicial %c: %i\n", letra, numNombres);
+
+    char** nombres = listadoNombres(personas, 5, letra);
+    for (i = 0; i < numNombres; i++) {
+        printf("%s\n", nombres[i]);
+    }
+
+    free(nombres);
 }
 
 void examen_2014(int x, int y) {

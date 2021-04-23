@@ -1,14 +1,20 @@
 #ifndef CENSO_H
 #define CENSO_H
+#include "persona.h"
 
 typedef struct {
-    int num_personas;
-    *Persona personas_registradas;
-    short int edad_media;
+    int numPersonas;
+    Persona** personas;
+    float mediaEdad;
 
-} GrupoPersonas;
+}GrupoPersonas;
 
-int cuantas_personas(Persona* array_personas, int tamanyo, int edad) {
-}
+int cuantasPersonas(Persona*, int, int);
+GrupoPersonas recuperarJovenes(Persona*, int);
+Persona* recuperarYogurin(Persona*, int);
+
+// parte 3
+int cuantosNombres(Persona*, int, char);
+char** listadoNombres(Persona*, int, char);
 
 #endif // CENSO_H
