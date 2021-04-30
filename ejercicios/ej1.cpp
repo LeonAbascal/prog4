@@ -6,26 +6,22 @@
 
 using namespace containers;
 
-ArrayInt::ArrayInt()
-{
+ArrayInt::ArrayInt() {
     this->capacity = DEFAULT_CAPACITY;
     array = new int[this->capacity];
 }
 
-ArrayInt::ArrayInt(unsigned int capacity)
-{
+ArrayInt::ArrayInt(unsigned int capacity) {
     this->capacity = capacity;
     this->array = (int*) malloc(capacity * sizeof(int));
 }
 
-ArrayInt::~ArrayInt()
-{
+ArrayInt::~ArrayInt() {
     delete[] array;
 
 }
 
-void ArrayInt::setValue(unsigned int index, int data)
-{
+void ArrayInt::setValue(unsigned int index, int data) {
     if (index < this->capacity) {
         this->array[index] = data;
 
@@ -35,8 +31,7 @@ void ArrayInt::setValue(unsigned int index, int data)
 
 }
 
-int ArrayInt::getValue(unsigned int index)
-{
+int ArrayInt::getValue(unsigned int index) {
     return this->array[index];
 }
 
@@ -45,7 +40,6 @@ void ArrayInt::setCapacity(unsigned int capacity) {
     this->array = (int*) realloc(this-> array, capacity * sizeof(int));
 }
 
-unsigned int ArrayInt::getCapacity()
-{
+unsigned int ArrayInt::getCapacity() {
     return this->capacity;
 }
