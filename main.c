@@ -36,7 +36,7 @@ void examenes(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    ejercicioCpp2();
+    ejercicioCpp3();
 
 
     return 0;
