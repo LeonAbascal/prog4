@@ -3,6 +3,34 @@
 
 using namespace std;
 
+// CONSTRUCTORES
+// Normal
+Point::Point(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+// Vacío
+Point::Point() {
+    x = 0;
+    y = 0;
+}
+
+// Destructor
+Point::~Point() {
+
+}
+
+// GETTERS & SETTERS
+int Point::getX() {
+    return this->x;
+}
+
+int Point::getY() {
+    return this->y;
+}
+
+// MISC
 void Point::print() {
     cout << "[ x: " << this->x << ", y: "<< this->y << " ]" << endl;
 }
@@ -48,7 +76,4 @@ void Point::swap3(Point* p) {
 
 }
 
-Point::Point(int x, int y) {
-    this->x = x;
-    this->y = y;
-}
+

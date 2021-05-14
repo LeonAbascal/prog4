@@ -1,6 +1,7 @@
 #include "ej1.hpp"
 #include "ej2.hpp"
 #include "ej3.hpp"
+#include "ej9.hpp"
 #include <iostream>
 
 
@@ -60,4 +61,31 @@ extern "C" void ejercicioCpp3() {
     cout << "-SWAP 3 ---------" << endl;
     p1.swap3(&p2);
     p1.print(); p2.print();
+}
+
+extern "C" void ejercicioCpp9() {
+
+    Point p(1, 2);
+    Point3D p2(1, 2, 3);
+    Point3D p3(5, 2, 6);
+    Point p4(4, 2);
+    Point3D p5(3, 3, 4);
+
+    Point* puntos[5];
+    puntos[0] = &p;
+    puntos[1] = &p2;
+    puntos[2] = &p3;
+    puntos[3] = &p4;
+    puntos[4] = &p5;
+
+    int i;
+    for (i = 0; i < 5; i++) {
+        puntos[i]->print();
+    }
+
+    p2 = p2 * p3;
+    p2.print();
+    p2 = p3 * 2;
+    p2.print();
+
 }
