@@ -1,10 +1,14 @@
+extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include "hex/hex_tools.h"
 #include <string.h>
 #include "Examenes/main_examenes.h"
 #include "strings/strings.h"
+}
+
 #include "ejercicios/main_ejercicios.hpp"
+#include "Examenes/examen_cpp.hpp"
 
 
 void examenes(int argc, char* argv[]) {
@@ -36,7 +40,7 @@ void examenes(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-    ejercicioCpp9();
+    cpp2014();
 
 
     return 0;

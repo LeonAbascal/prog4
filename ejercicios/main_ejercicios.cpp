@@ -8,13 +8,13 @@
 using namespace containers;
 using namespace std;
 
-extern "C" void ejercicioCpp1() {
+void ejercicioCpp1() {
     ArrayInt ai(5);
     cout << "Capacidad del ArrayInt: " << ai.getCapacity() << endl;
 
 }
 
-extern "C" void ejercicioCpp2() {
+void ejercicioCpp2() {
     Stack s;
     s.pop();
     s.push(2);
@@ -27,7 +27,7 @@ extern "C" void ejercicioCpp2() {
     delete &s;
 }
 
-extern "C" void ejercicioCpp3() {
+void ejercicioCpp3() {
 
     Point p1(1, 3);
     Point p2(3, 1);
@@ -63,7 +63,7 @@ extern "C" void ejercicioCpp3() {
     p1.print(); p2.print();
 }
 
-extern "C" void ejercicioCpp9() {
+void ejercicioCpp9() {
 
     Point p(1, 2);
     Point3D p2(1, 2, 3);
