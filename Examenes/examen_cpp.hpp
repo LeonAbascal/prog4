@@ -1,6 +1,6 @@
 #ifndef CPP_EXAMENES_HPP
 #define CPP_EXAMENES_HPP
-#include "cpp2014/2014.hpp"
+#include "cpp2014/Punto.h"
 
 void cpp2014();
 
